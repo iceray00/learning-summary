@@ -1238,6 +1238,14 @@
       t.classList.toggle('active', i === activeIndex);
       t.setAttribute('aria-selected', String(i === activeIndex));
     });
+    // in a narrow window the tab strip scrolls sideways: bring the current tab into view
+    const strip = document.querySelector('.tabs');
+    const current = strip && strip.children[activeIndex];
+    if (current) {
+      const a = current.getBoundingClientRect();
+      const b = strip.getBoundingClientRect();
+      strip.scrollLeft += a.left + a.width / 2 - (b.left + b.width / 2);
+    }
     if (!capture) renderCaption(s);
 
     requestAnimationFrame(() => countUp(device));
