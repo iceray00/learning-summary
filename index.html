@@ -709,6 +709,173 @@
     animation: riseIn 0.45s 0.24s ease both;
   }
 
+  /* ============ question list (对比方案：默认收起，可展开) ============ */
+  .q-toggle {
+    width: 100%;
+    height: 32px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    border: 0;
+    border-radius: 12px;
+    background: #f3f6fd;
+    box-shadow: inset 0 0 0 1px #e9eefa;
+    color: #4a5a7c;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: background 0.14s ease, color 0.14s ease;
+  }
+  .q-toggle:hover { background: #edf2ff; color: var(--blue-2); }
+  .q-toggle svg { color: #8c9ab6; }
+  .q-panel, .hero-mini { display: none; }
+
+  /* 展开：头图压成标题栏，指标并到标题栏右侧，列表占满卡片 */
+  .summary-card.open .card-confetti,
+  .summary-card.open .rank-badge,
+  .summary-card.open .stats,
+  .summary-card.open .q-toggle { display: none; }
+  .summary-card.open .card-hero { height: 64px; padding: 0 16px 18px 22px; }
+  .summary-card.open .card-title { font-size: 20px; letter-spacing: 0.02em; animation: none; }
+  .summary-card.open .card-body { padding: 10px 20px 20px; }
+  .summary-card.open .hero-mini { display: flex; }
+  .summary-card.open .q-panel { display: block; animation: riseIn 0.3s ease both; }
+  .summary-card.open .card-actions { animation: none; }
+
+  .hero-mini { position: relative; z-index: 2; flex: none; align-items: center; gap: 8px; }
+  .mini-pill {
+    height: 28px;
+    padding: 0 11px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 999px;
+    background: #ffffff;
+    box-shadow: 0 3px 8px rgba(16, 28, 110, 0.2);
+    white-space: nowrap;
+  }
+  .mini-pill em { font-style: normal; font-size: 11px; font-weight: 600; color: #6a7793; letter-spacing: 0.03em; }
+  .mini-pill strong { font-family: var(--font-num); font-size: 15px; font-weight: 900; line-height: 1; color: var(--orange); }
+  .mini-pill.tone-good strong { color: var(--mint); }
+  .mini-pill.tone-low strong { color: var(--red); }
+  .mini-pill.gold { background: linear-gradient(180deg, #ffec96 0%, #ffca3a 100%); box-shadow: 0 2px 0 var(--gold-deep), 0 5px 10px rgba(16, 28, 110, 0.22); }
+  .mini-pill.gold em, .mini-pill.gold strong { color: #6a3f00; }
+
+  .q-bar { height: 28px; display: flex; align-items: center; gap: 12px; }
+  .q-bar b { font-size: 13px; font-weight: 700; color: var(--ink-2); letter-spacing: 0.03em; }
+  .q-legend { display: flex; align-items: center; gap: 10px; font-size: 11px; color: #8590a8; }
+  .q-legend span { display: inline-flex; align-items: center; gap: 4px; }
+  .q-collapse {
+    margin-left: auto;
+    height: 26px;
+    padding: 0 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border: 0;
+    border-radius: 999px;
+    background: #f3f6fd;
+    color: #4a5a7c;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .q-collapse:hover { background: #edf2ff; color: var(--blue-2); }
+  .q-list {
+    height: 196px;
+    margin-top: 6px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #d5ddee transparent;
+    border-top: 1px solid #edf1f8;
+  }
+  /* 底部淡出，提示下面还有题目 */
+  .q-panel { position: relative; }
+  .q-panel::after { content: ""; position: absolute; left: 0; right: 6px; bottom: 0; height: 14px; pointer-events: none; background: linear-gradient(180deg, rgba(255, 255, 255, 0), #ffffff); }
+  .q-list::-webkit-scrollbar { width: 4px; }
+  .q-list::-webkit-scrollbar-thumb { border-radius: 4px; background: #d5ddee; }
+  .q-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 6px 10px 2px;
+    border-bottom: 1px solid #edf1f8;
+    cursor: pointer;
+  }
+  .q-row:hover { background: #fafbff; }
+  .q-main { flex: 1; min-width: 0; }
+  .q-head { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--ink-2); letter-spacing: 0.02em; }
+  .q-type { flex: none; width: 18px; height: 18px; display: grid; place-items: center; border-radius: 6px; background: var(--blue-soft); color: var(--blue); }
+  .q-type.talk { background: #f1edff; color: var(--violet); }
+  .q-mark {
+    flex: none;
+    width: 15px;
+    height: 15px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 50%;
+    color: #ffffff;
+    font-family: var(--font-num);
+    font-size: 10px;
+    font-weight: 900;
+    line-height: 1;
+    background: var(--mint);
+  }
+  .q-mark.half { background: var(--orange); }
+  .q-mark.wrong { background: var(--red); }
+  .q-mark.none { background: #c3cbdb; }
+  .q-legend .q-mark { width: 13px; height: 13px; font-size: 9px; }
+  .q-stem {
+    margin: 6px 0 0;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .q-book {
+    flex: none;
+    height: 30px;
+    padding: 0 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--blue-soft);
+    color: var(--blue-2);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: background 0.14s ease, color 0.14s ease;
+  }
+  .q-book:hover { background: #e3ebff; }
+  .q-book.added { background: #f1f3f8; color: #8a95ab; }
+  .screen-toast {
+    position: absolute;
+    z-index: 9;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 11px 20px;
+    border-radius: 10px;
+    background: rgba(34, 38, 50, 0.88);
+    color: #ffffff;
+    font-size: 13.5px;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease;
+  }
+  .screen-toast.show { opacity: 1; }
+
   /* ============ report popup ============ */
   .report-sheet {
     position: absolute;
@@ -771,6 +938,8 @@
     transition: background 0.14s ease;
   }
   .sheet-close:hover { background: rgba(255, 255, 255, 0.32); }
+  /* 外观 28px，可点范围 44px */
+  .sheet-close::after { content: ""; position: absolute; inset: -8px; border-radius: 50%; }
 
   .sheet-body {
     position: relative;
@@ -801,7 +970,6 @@
   }
   .sheet-actions { display: flex; gap: 10px; margin-top: 18px; }
   .sheet-actions .btn { height: 52px; }
-  .sheet-actions .btn-ghost { flex: 0 0 108px; padding: 0; font-size: 14px; }
   .sheet-actions .btn-primary { padding: 0 14px; font-size: 16px; overflow: hidden; }
   .sheet-actions .btn-primary::after {
     content: "";
@@ -875,7 +1043,12 @@
   const ICONS = {
     check: '<path d="M20 6 9 17l-5-5"/>',
     left: '<path d="m15 18-6-6 6-6"/>',
-    x: '<path d="M6 6l12 12"/><path d="M18 6 6 18"/>'
+    x: '<path d="M6 6l12 12"/><path d="M18 6 6 18"/>',
+    down: '<path d="m6 9 6 6 6-6"/>',
+    up: '<path d="m6 15 6-6 6 6"/>',
+    plus: '<path d="M12 5v14"/><path d="M5 12h14"/>',
+    book: '<path d="M5 5.5A1.5 1.5 0 0 1 6.5 4H19v13H6.5A1.5 1.5 0 0 0 5 18.5v-13Z"/><path d="M5 18.5A1.5 1.5 0 0 0 6.5 20H19"/>',
+    bulb: '<path d="M9 17h6"/><path d="M10 20.5h4"/><path d="M8.2 13.6a6 6 0 1 1 7.6 0c-.6.5-.8 1.1-.8 1.9H9c0-.8-.2-1.4-.8-1.9Z"/>'
   };
 
   function icon(name, size = 16, sw = 1.9) {
@@ -896,10 +1069,9 @@
       titleHtml: '太棒了，<span class="hl">完成本节</span>！',
       primary: '学习下一节',
       primaryMeta: '数学 · 一次函数的图像',
-      secondary: '重新播放',
       caption: '完成课时 → 继续下一节',
       note: '下一节名称并入主按钮；正确率用圆环呈现，排名放在右上角。',
-      chips: ['目标前置', '数据一行', '按钮同排']
+      chips: ['目标前置', '数据一行', '一个主按钮']
     },
     {
       id: 'wrap',
@@ -907,7 +1079,6 @@
       type: 'summary',
       titleHtml: '本节完成，继续学<span class="hl">全等三角形性质</span>',
       primary: '继续学习',
-      secondary: '重新播放',
       caption: '完成课时 → 回绕未完成课时',
       note: '未完成课时直接写进标题，主按钮一步回到那一节。',
       chips: ['进度提示', '单行目标', '轻量收尾']
@@ -929,7 +1100,6 @@
       type: 'summary',
       titleHtml: '恭喜<span class="hl">完成本课学习</span>！',
       primary: '完成学习',
-      secondary: '重新播放',
       caption: '全部完成 → 回学习地图',
       note: '最后一节用「完成学习」收束，衔接学习地图，再由地图承接课程报告引导。',
       chips: ['地图衔接', '链路闭环', '仪式收尾']
@@ -939,8 +1109,19 @@
       tab: '课程报告',
       type: 'report',
       caption: '学习地图 → 课程报告引导',
-      note: '一句话说清报告里有什么，再给一个低顾虑的出口。',
-      chips: ['竖屏弹窗', '一句话引导', '低顾虑出口']
+      note: '一句话勾起好奇，只留一个主按钮；不想看可以点右上角关闭。',
+      chips: ['竖屏弹窗', '一句话引导', '随时可关闭']
+    },
+    {
+      id: 'list',
+      tab: '题目列表',
+      type: 'summary',
+      list: true,
+      titleHtml: '恭喜<span class="hl">完成本课学习</span>！',
+      primary: '完成学习',
+      caption: '对比方案 → 保留题目列表',
+      note: '在「完成学习」弹窗上加一条「查看题目」：默认收起，展开后上下滑动看题，加入、移出错题本和老版一致。',
+      chips: ['默认收起', '展开看题', '错题本照旧']
     }
   ];
 
@@ -1056,6 +1237,48 @@
     </svg>`;
   }
 
+  // 题目列表沿用老版学习总结页的内容和规则；题干是老版截图里的示意
+  const QUESTIONS = [
+    { type: 'test', mark: 'right', book: true, stem: '如图，∠C = 90°，AC = 12，BC = 6，AX ⊥ AC，点 P 和…' },
+    { type: 'talk', mark: 'right', stem: '△ABP 和 △DCE 哪个三角形是确定的？（ ）' },
+    { type: 'talk', mark: 'wrong', stem: '这个关于 t 的等量关系式是（ ）' },
+    { type: 'test', mark: 'right', book: true, stem: '如图，在长方形 ABCD 中，BC = 5cm，CD = 3cm，延长 BC…' },
+    { type: 'talk', mark: 'right', stem: '已知的两边是什么关系？（ ）' }
+  ];
+  const MARKS = {
+    right: ['', '答对', icon('check', 9, 4)],
+    half: [' half', '半对', icon('check', 9, 4)],
+    wrong: [' wrong', '答错', icon('x', 9, 4)],
+    none: [' none', '未答', '?']
+  };
+  const mark = (k) => `<i class="q-mark${MARKS[k][0]}" role="img" aria-label="${MARKS[k][1]}">${MARKS[k][2]}</i>`;
+  const BOOK_ADD = `${icon('plus', 12, 2.8)}加入错题本`;
+  const BOOK_ADDED = `${icon('check', 12, 2.8)}已加入错题本`;
+
+  function listMarkup() {
+    return `
+      <button class="q-toggle" data-list-toggle aria-expanded="false">查看题目${icon('down', 14, 2.4)}</button>
+      <div class="q-panel">
+        <div class="q-bar">
+          <b>本节题目</b>
+          <span class="q-legend">${Object.keys(MARKS).map((k) => `<span>${mark(k)}${MARKS[k][1]}</span>`).join('')}</span>
+          <button class="q-collapse" data-list-toggle aria-expanded="true">收起${icon('up', 13, 2.4)}</button>
+        </div>
+        <div class="q-list">
+          ${QUESTIONS.map((q) => `
+            <div class="q-row" data-action="查看题目">
+              <div class="q-main">
+                <div class="q-head">
+                  <span class="q-type ${q.type}">${icon(q.type === 'test' ? 'book' : 'bulb', 12, 2.2)}</span>${q.type === 'test' ? '随堂检测' : '课堂交互'}${mark(q.mark)}
+                </div>
+                <p class="q-stem">${q.stem}</p>
+              </div>
+              ${q.book ? `<button class="q-book" data-book>${BOOK_ADD}</button>` : ''}
+            </div>`).join('')}
+        </div>
+      </div>`;
+  }
+
   function summaryMarkup(s) {
     // 只让圆环和数字随表现变色；格子保持中性，低分时整块不会发红。
     const scoreTone = STATS.score >= 85 ? 'tone-good' : STATS.score < 60 ? 'tone-low' : 'tone-mid';
@@ -1069,7 +1292,7 @@
         </div>
 
         <div class="modal-layer">
-          <section class="summary-card" role="dialog" aria-modal="true" aria-label="学习总结">
+          <section class="summary-card${s.list && query.has('open') ? ' open' : ''}" role="dialog" aria-modal="true" aria-label="学习总结">
             ${confetti()}
             <header class="card-hero">
               <span class="hero-rays" aria-hidden="true"></span>
@@ -1079,6 +1302,10 @@
                 ${wreath()}
                 <span class="rank-copy"><strong class="len-${Math.min(6, STATS.rank.length)}">${STATS.rank}</strong><em>正确率排名</em></span>
               </div>
+              ${s.list ? `<div class="hero-mini">
+                <span class="mini-pill ${scoreTone}"><em>正确率</em><strong>${STATS.score}%</strong></span>
+                <span class="mini-pill gold"><em>正确率排名</em><strong>${STATS.rank}</strong></span>
+              </div>` : ''}
             </header>
 
             <div class="card-body">
@@ -1108,13 +1335,14 @@
                   </span>
                   <div class="stat-copy">
                     <span class="stat-value"><strong>${STATS.interactions}</strong><em>次</em></span>
-                    <span class="stat-label">互动次数</span>
+                    <span class="stat-label">交互次数</span>
                   </div>
                 </div>
               </div>
+              ${s.list ? listMarkup() : ''}
 
               <div class="card-actions">
-                <button class="btn btn-ghost" data-action="${s.secondary}">${s.secondary}</button>
+                ${s.secondary ? `<button class="btn btn-ghost" data-action="${s.secondary}">${s.secondary}</button>` : ''}
                 <button class="btn btn-primary${s.primaryMeta ? ' has-meta' : ''}" data-action="${s.primary}">
                   <span class="btn-main">${s.primary}</span>
                   ${s.primaryMeta ? `<span class="btn-sep" aria-hidden="true"></span><span class="btn-meta">${s.primaryMeta}</span>` : ''}
@@ -1123,7 +1351,27 @@
             </div>
           </section>
         </div>
+        ${s.list ? '<div class="screen-toast" role="status"></div>' : ''}
       </div>`;
+  }
+
+  // 题目列表的两种操作：展开 / 收起，加入 / 移出错题本
+  function listClick(e) {
+    const toggle = e.target.closest('[data-list-toggle]');
+    if (toggle) {
+      toggle.closest('.summary-card').classList.toggle('open');
+      return true;
+    }
+    const book = e.target.closest('[data-book]');
+    if (!book) return false;
+    const added = book.classList.toggle('added');
+    book.innerHTML = added ? BOOK_ADDED : BOOK_ADD;
+    const tip = book.closest('.screen').querySelector('.screen-toast');
+    tip.textContent = added ? '已加入错题本' : '本题已从错题本移出';
+    tip.classList.add('show');
+    clearTimeout(tip.timer);
+    tip.timer = setTimeout(() => tip.classList.remove('show'), 1600);
+    return true;
   }
 
   function reportMarkup() {
@@ -1138,10 +1386,9 @@
 
           <div class="sheet-body">
             <h2 class="sheet-title">课堂报告准备好了 ✨</h2>
-            <p class="report-lead">花几分钟看看这堂课的重点和你的课堂表现吧～</p>
+            <p class="report-lead">这堂课学得怎么样？重点也帮你划出来啦～</p>
 
             <div class="sheet-actions">
-              <button class="btn btn-ghost" data-action="稍后再看">稍后再看</button>
               <button class="btn btn-primary" data-action="查看课堂报告">查看课堂报告</button>
             </div>
           </div>
@@ -1185,6 +1432,7 @@
         select(Number(tab.dataset.index));
         return;
       }
+      if (listClick(e)) return;
       const action = e.target.closest('[data-action]');
       if (action) {
         showToast(action.dataset.action);
@@ -1300,6 +1548,7 @@
       document.body.style.width = w + 'px';
       document.body.style.height = h + 'px';
       document.getElementById('device').innerHTML = s.type === 'report' ? reportMarkup() : summaryMarkup(s);
+      document.getElementById('device').addEventListener('click', listClick);
       requestAnimationFrame(() => countUp(document.getElementById('device')));
       return;
     }
