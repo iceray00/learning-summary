@@ -1001,10 +1001,12 @@
   if (query.has('score')) STATS.score = Math.max(0, Math.min(100, Math.round(Number(query.get('score'))) || 0));
   if (query.has('rank')) STATS.rank = query.get('rank').replace(/[^\w.]/g, '').slice(0, 7) || STATS.rank;
 
+  // list: true —— 弹窗里带「查看题目」：默认收起，展开后上下滑动看题，加入、移出错题本和老版一致
   const STATES = [
     {
       id: 'next',
       tab: '下一课时',
+      list: true,
       titleHtml: '太棒了，<span class="hl">完成本节</span>！',
       primary: '学习下一节',
       primaryMeta: '数学 · 一次函数的图像',
@@ -1015,6 +1017,7 @@
     {
       id: 'wrap',
       tab: '回绕未完成',
+      list: true,
       titleHtml: '本节完成，继续学<span class="hl">全等三角形性质</span>',
       primary: '继续学习',
       caption: '完成课时 → 回绕未完成课时',
@@ -1024,6 +1027,7 @@
     {
       id: 'exam',
       tab: '出门测',
+      list: true,
       titleHtml: '全部学完，<span class="hl">就差出门测</span>！',
       primary: '进入出门测',
       secondary: '稍后再说',
@@ -1034,21 +1038,12 @@
     {
       id: 'complete',
       tab: '完成学习',
+      list: true,
       titleHtml: '恭喜<span class="hl">完成本课学习</span>！',
       primary: '完成学习',
       caption: '全部完成 → 回学习地图',
       note: '最后一节用「完成学习」收束，衔接学习地图。',
       chips: ['地图衔接', '链路闭环', '仪式收尾']
-    },
-    {
-      id: 'list',
-      tab: '题目列表',
-      list: true,
-      titleHtml: '恭喜<span class="hl">完成本课学习</span>！',
-      primary: '完成学习',
-      caption: '对比方案 → 保留题目列表',
-      note: '在「完成学习」弹窗上加一条「查看题目」：默认收起，展开后上下滑动看题，加入、移出错题本和老版一致。',
-      chips: ['默认收起', '展开看题', '错题本照旧']
     },
     {
       id: 'video',
